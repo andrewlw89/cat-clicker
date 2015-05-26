@@ -1,8 +1,9 @@
-var Cat = function(name, cat_num, image, counter) {
-	this.name = name;
+var Cat = function(cat_num) {
+	this.name = 'cat_div'+cat_num;
 	this.cat_number = cat_num;
-	this.image_tag = image;
-	this.counter_tag = counter;
+	this.cat_div = '<div id="cat_div' + this.cat_number + '"></div>';
+	this.image = '<img id="kitten' + this.cat_number + '" src="https://placekitten.com/g/200/300" alt="A photo of a cat">';
+	this.counter = '<h3>You have clicked on the cat <span id="x' + this.cat_number + '">0</span> times!</h3>';
 };
 
 // Function that takes in the element that is clicked on and increments it's counter
@@ -15,47 +16,41 @@ $('.cats-container').click(function(e) {
 });
 
 // For-loop for generating the required amount of cats to display on the page
-var catGenerator = function() {
-	$( "select" ).change(function () {
-		$( "select option:selected" ).each(function() {
-				$(".cats-container").empty();
-				var cats_needed = $("select option:selected").text();
-				for (cat_num = 0 ; cat_num < cats_needed ; cat_num++) {
-					var cat_div = '<div id="cat_div' + cat_num + '"></div>';
-					var image = '<img id="kitten' + cat_num + '" src="https://placekitten.com/g/200/300" alt="A photo of a cat">';
-			    	var counter = '<h3>You have clicked on the cat <span id="x' + cat_num + '">0</span> times!</h3>';
-			    	var name = 'cat_div'+cat_num;
-			    	var cat = new Cat(name, cat_num, image, counter);
-			    	cat_objects.push(cat);
-			    	$('.cats-container').append(cat_div);
-			    	$('#cat_div' + cat_num).append(image);
-			    	$('#cat_div' + cat_num).append(counter);
-
-				}
-		});
+$( "select" ).change(function () {
+	$( "select option:selected" ).each(function() {
+		//$(".cats-container").empty();
+		var cats_selected = $("select option:selected").text();
+		console.log(cats_selected);
+		var cats_have = cat_objects.length;
+		if (cats_have < cats_selected) {
+			var cats_total = cats_selected - cats_have;
+			//console.log(cats_total);
+			generateCats(cats_total);		
+		} else {
+			
+		}
 	});
-};
+});
 
-Cat.prototype.append = function() {
-	var cat_div = '<div id="cat_div' + this.cat_number + '"></div>';
-	$('.cats-container').append(cat_div);
-	var image = '<img id="kitten' + this.cat_number + '" src="https://placekitten.com/g/200/300" alt="A photo of a cat">';
-	$('#cat_div' + this.cat_number).append(image);
-	var counter = '<h3>You have clicked on the cat <span id="x' + this.cat_number + '">0</span> times!</h3>';
-	$('#cat_div' + this.cat_number).append(counter);
-};
 
 var init = function() {
-	var cat_num = 0;
-	var name = 'cat_div'+cat_num;
-	var cat = new Cat(name, cat_num);
-	cat.append();
-	cat_objects.push(cat);
+	generateCats(cat_num = 1);
 };
+
+
+var generateCats = function(cats_total) {
+	for (var num = 0 ; num < cats_total ; num++) {
+    	cat_num = cat_objects.length;
+    	var cat = new Cat(cat_num);
+    	cat_objects.push(cat);
+    	console.log(cat_objects);
+	}
+};
+
 
 var cat_objects = [];
 
 
 document.addEventListener("load", init());
 
-console.log(cat_objects);
+console.log();
