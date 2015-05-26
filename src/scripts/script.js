@@ -32,13 +32,30 @@ var catGenerator = function() {
 			    	$('#cat_div' + cat_num).append(counter);
 
 				}
-			});
 		});
-	};
+	});
+};
+
+Cat.prototype.append = function() {
+	var cat_div = '<div id="cat_div' + this.cat_number + '"></div>';
+	$('.cats-container').append(cat_div);
+	var image = '<img id="kitten' + this.cat_number + '" src="https://placekitten.com/g/200/300" alt="A photo of a cat">';
+	$('#cat_div' + this.cat_number).append(image);
+	var counter = '<h3>You have clicked on the cat <span id="x' + this.cat_number + '">0</span> times!</h3>';
+	$('#cat_div' + this.cat_number).append(counter);
+};
+
+var init = function() {
+	var cat_num = 0;
+	var name = 'cat_div'+cat_num;
+	var cat = new Cat(name, cat_num);
+	cat.append();
+	cat_objects.push(cat);
+};
 
 var cat_objects = [];
 
 
-document.addEventListener("load", catGenerator());
+document.addEventListener("load", init());
 
 console.log(cat_objects);
