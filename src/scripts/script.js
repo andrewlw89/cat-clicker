@@ -52,6 +52,8 @@ var paintCats = function(cats_have, cats_selected) {
 	for (cats_have ; cats_have < cats_selected ; cats_have++) {
 		console.log(cats_have, cats_selected);
 		$('.cats-container').append(cat_objects[cats_have].cat_div);
+		$('#cat_div'+cats_have).append(cat_objects[cats_have].image);
+		$('#cat_div'+cats_have).append(cat_objects[cats_have].counter);
 	}
 }
 
