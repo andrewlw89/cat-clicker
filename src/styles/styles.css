@@ -1,0 +1,9 @@
+.cats-container {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.cat_box {
+	margin-left: 15px;
+}
