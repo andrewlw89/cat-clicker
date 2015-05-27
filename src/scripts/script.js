@@ -19,13 +19,12 @@ $('.cats-container').click(function(e) {
 $( "select" ).change(function () {
 	$( "select option:selected" ).each(function() {
 		//$(".cats-container").empty();
-		var cats_selected = $("select option:selected").text();
-		console.log(cats_selected);
+		var cats_selected = Number($("select option:selected").text());
 		var cats_have = cat_objects.length;
 		if (cats_have < cats_selected) {
-			var cats_total = cats_selected - cats_have;
 			//console.log(cats_total);
-			generateCats(cats_total);		
+			generateCats(cats_have, cats_selected);
+			paintCats(cats_have, cats_selected);		
 		} else {
 			
 		}
@@ -34,23 +33,29 @@ $( "select" ).change(function () {
 
 
 var init = function() {
-	generateCats(cat_num = 1);
+	generateCats(0, 1);
+	paintCats(0,1);
 };
 
 
-var generateCats = function(cats_total) {
-	for (var num = 0 ; num < cats_total ; num++) {
+var generateCats = function(cats_have, cats_total) {
+	for (var cats_have ; cats_have < cats_total ; cats_have++) {
+		//console.log(cats_have, cats_total);
     	cat_num = cat_objects.length;
     	var cat = new Cat(cat_num);
     	cat_objects.push(cat);
-    	console.log(cat_objects);
+    	//console.log(cat_objects);
 	}
 };
 
+var paintCats = function(cats_have, cats_selected) {
+	for (cats_have ; cats_have < cats_selected ; cats_have++) {
+		console.log(cats_have, cats_selected);
+		$('.cats-container').append(cat_objects[cats_have].cat_div);
+	}
+}
 
 var cat_objects = [];
 
 
 document.addEventListener("load", init());
-
-console.log();
